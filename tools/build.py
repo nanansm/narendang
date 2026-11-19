@@ -23,6 +23,7 @@ T=json.load(open('tools/logo-trace.json'))
 def logo(k,cls,label):
     t=T[k];return f'<svg class="{cls}" viewBox="0 0 {t["w"]} {t["h"]}" role="img" aria-label="{label}"><g transform="{t["g"]}"><path d="{t["d"]}"/></g></svg>'
 GONJ=logo('gonjong','gonjong','')
+GONJ_IKON=logo('gonjong','gonjong-ikon','')
 BOW=open('tools/mote-bow.svg').read().replace('<svg ','<svg class="bow" role="img" aria-label="MOTE" ',1)
 WORD=logo('wordmark','wordmark','Narendang')
 
@@ -41,15 +42,11 @@ def ik(k,c='ik'): return f'<svg class="{c}" viewBox="0 0 24 24" aria-hidden="tru
 BUNGA='<svg class="bunga" viewBox="0 0 7 7" aria-hidden="true" shape-rendering="crispEdges"><path d="M3 0h1v2H3zM0 3h2v1H0zM5 3h2v1H5zM3 5h1v2H3zM2 2h3v3H2z"/></svg>'
 def lb(txt,cls=''): return f'<p class="lb {cls}">{BUNGA}{txt}</p>'
 GJ=T['gonjong']
-def stempel(teks,isi,cls=''):
-    return f'''<svg class="stempel {cls}" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="lk{cls}" d="M60 16a44 44 0 1 1 0 88a44 44 0 1 1 0-88"/></defs>
-<circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="60" cy="60" r="32" fill="none" stroke="currentColor" stroke-width="1.5"/>
-<text font-family="'Barlow Condensed',sans-serif" font-weight="600" font-size="12.5" fill="currentColor"><textPath href="#lk{cls}" textLength="270" lengthAdjust="spacing">{teks}</textPath></text>{isi}</svg>'''
-STEMPEL_KAL=stempel('NARENDANG · JL. KALIMANTAN · BANDUNG ·',f'<g fill="currentColor" transform="translate(40 49) scale({40/GJ["w"]:.4f})"><g transform="{GJ["g"]}"><path d="{GJ["d"]}"/></g></g>','kal')
-STEMPEL_CIS=stempel('NARENDANG · JL. CISANGKUY 58 · BANDUNG ·','<image href="/assets/mark-cisangkuy-krem.webp" x="36" y="46" width="48" height="28"/>','cis')
+LG_KAL=logo('gonjong','lg-kal','Logogram Narendang Jl. Kalimantan')
+LG_CIS='<img class="lg-cis" src="/assets/mark-cisangkuy.webp" width="240" height="140" alt="Logogram Narendang Jl. Cisangkuy 58">'
 
-def baris(no,judul,ket,url,ikon='panah'):
-    return f'<li><a class="baris" href="{html.escape(url)}" target="_blank" rel="noopener"><span class="no">{no}</span><span class="isi"><b>{judul}</b><small>{ket}</small></span><span class="pnh-k">{ik(ikon,"ik pnh")}</span></a></li>'
+def baris(logo,judul,ket,url,ikon='panah'):
+    return f'<li><a class="baris" href="{html.escape(url)}" target="_blank" rel="noopener"><span class="logo-k">{logo}</span><span class="isi"><b>{judul}</b><small>{ket}</small></span><span class="pnh-k">{ik(ikon,"ik pnh")}</span></a></li>'
 
 def tombol(url,teks,ikon,cls):
     ext='' if url=='#' else ' target="_blank" rel="noopener"'
@@ -105,7 +102,7 @@ page=f'''<!doctype html>
 {lb('Dua outlet')}
 <div class="outlet">
 <section class="kartu krem" aria-labelledby="o1">
-<div class="atas"><p class="nomor">Outlet 01</p>{STEMPEL_KAL}</div>
+<div class="atas"><p class="nomor">Outlet 01</p>{LG_KAL}</div>
 <h2 id="o1"><span class="jl">Jl.</span>Kalimantan</h2>
 <p class="janji">Sudah&nbsp;terbukti nendang&nbsp;rasanya.</p>
 <p class="bukti"><b>4,8</b><span>1.312 ulasan Google</span></p>
@@ -113,7 +110,7 @@ page=f'''<!doctype html>
 <a class="menu-ln" href="{L['menu_kal']}">Lihat menu</a>
 </section>
 <section class="kartu kalio" aria-labelledby="o2">
-<div class="atas"><p class="nomor">Outlet 02</p>{STEMPEL_CIS}</div>
+<div class="atas"><p class="nomor">Outlet 02</p>{LG_CIS}</div>
 <h2 id="o2"><span class="jl">Jl.</span>Cisangkuy&nbsp;58</h2>
 <p class="janji">Paling&nbsp;cocok buat&nbsp;rombongan dan&nbsp;keluarga.</p>
 <p class="bukti"><b>178</b><span>kursi dan 2 ruang VIP</span></p>
@@ -125,15 +122,15 @@ page=f'''<!doctype html>
 
 {lb('Pesan antar &amp; katering')}
 <ul class="daftar">
-{baris('03','Paket Box &amp; Prasmanan','Daftar paket (PDF)',L['paket'])}
-{baris('04','GoFood','Pesan antar',L['gofood'])}
-{baris('05','ShopeeFood','Pesan antar',L['shopee'])}
+{baris(GONJ_IKON,'Paket Box &amp; Prasmanan','Daftar paket (PDF)',L['paket'])}
+{baris('<img src="/assets/ikon-gofood.svg" alt="" width="30" height="28">','GoFood','Pesan antar',L['gofood'])}
+{baris('<img src="/assets/ikon-shopeefood.svg" alt="" width="24" height="27">','ShopeeFood','Pesan antar',L['shopee'])}
 </ul>
 
 {lb('Ulas di Google')}
 <ul class="daftar">
-{baris('06','Ulas Jl. Cisangkuy 58','Google Maps · outlet kedua',L['maps_cis'])}
-{baris('07','Ulas Jl. Kalimantan','Google Maps · outlet pertama',L['maps_kal'])}
+{baris('<img src="/assets/mark-cisangkuy.webp" alt="" width="34" height="20">','Ulas Jl. Cisangkuy 58','Google Maps · outlet kedua',L['maps_cis'])}
+{baris(GONJ_IKON,'Ulas Jl. Kalimantan','Google Maps · outlet pertama',L['maps_kal'])}
 </ul>
 
 <nav class="sosmed" aria-label="Media sosial Narendang">

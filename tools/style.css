@@ -49,9 +49,7 @@ a{color:inherit;text-decoration:none}
 .krem h2{color:var(--kalio)}
 .sub{font:600 12px/1.2 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;color:var(--merah-teks)}
 .kalio .sub{color:var(--kunyit)}
-.stempel{width:62px;height:62px;color:var(--merah);transform:rotate(-12deg);opacity:.9;flex:none}
-.kalio .stempel{color:var(--kunyit);transform:rotate(10deg)}
-.tabel{margin:12px 0 14px;border-top:1px solid var(--garis)}
+.kalio .tabel{margin:12px 0 14px;border-top:1px solid var(--garis)}
 .kalio .tabel{border-color:rgba(243,233,218,.4)}
 .tabel div{display:flex;flex-direction:column;gap:2px;padding:7px 0;border-bottom:1px solid var(--garis)}
 .kalio .tabel div{border-color:rgba(243,233,218,.4)}
@@ -118,3 +116,9 @@ a:focus-visible{outline:2px solid var(--kunyit);outline-offset:3px}
 @media (hover:hover) and (pointer:fine){.baris:hover{background:rgba(46,23,18,.04)}}
 .kaki-c{display:flex;align-items:center;justify-content:center;gap:10px}
 .bow{height:1em;width:auto;fill:currentColor;flex:none}
+/* logo tiap tautan sebagai penanda */
+.logo-k{flex:none;width:40px;display:grid;place-items:center}
+.logo-k img{display:block;height:auto}
+.gonjong-ikon{width:30px;height:auto;fill:var(--merah)}
+.lg-kal{width:46px;height:auto;fill:var(--merah);flex:none}
+.lg-cis{width:52px;height:auto;flex:none}
