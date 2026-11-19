@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://narendang.pages.dev/sitemap.xml
