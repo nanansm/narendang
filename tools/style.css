@@ -34,36 +34,32 @@ a{color:inherit;text-decoration:none}
 .cta-ik{width:30px;height:30px}
 
 /* label ala deck: bunga piksel + kapital direntang */
-.lb{display:flex;align-items:center;gap:8px;margin:40px 0 16px;font:600 13px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--merah-teks)}
+.lb{display:flex;align-items:center;gap:8px;margin:36px 0 16px;font:600 13px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--merah-teks)}
 .bunga{width:11px;height:11px;fill:var(--merah-teks)}
 
 /* kartu arsip bernomor */
-.kartu{position:relative;padding:22px 20px 20px;margin-bottom:26px;box-shadow:0 1px 0 rgba(46,23,18,.08),0 14px 22px -16px rgba(46,23,18,.6)}
-.kartu.krem{background:var(--santan);transform:rotate(-.8deg);border:1px solid rgba(46,23,18,.12)}
-.kartu.kalio{background:var(--kalio) url(/assets/songket-kalio.svg) 0 0/120px 120px;color:var(--santan);transform:rotate(.7deg)}
-.nomor{font:600 13px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--merah-teks);margin-bottom:18px}
+.outlet{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}
+.kartu{position:relative;display:flex;flex-direction:column;padding:16px 13px 14px;box-shadow:0 1px 0 rgba(46,23,18,.08),0 14px 22px -16px rgba(46,23,18,.6)}
+.kartu.krem{background:var(--santan);transform:rotate(-.6deg);border:1px solid rgba(46,23,18,.12)}
+.kartu.kalio{background:var(--kalio) url(/assets/songket-kalio.svg) 0 0/120px 120px;color:var(--santan);transform:rotate(.6deg)}
+.atas{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.nomor{font:600 12px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--merah-teks);padding-top:4px}
 .kalio .nomor{color:var(--kunyit)}
-.kartu h2{font:700 30px/1.1 Philosopher,Georgia,serif;letter-spacing:-.005em}
+.kartu h2{font:700 22px/1.1 Philosopher,Georgia,serif;letter-spacing:-.005em}
 .krem h2{color:var(--kalio)}
-.sub{font:600 14px/1.2 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;color:var(--merah-teks)}
+.sub{font:600 12px/1.2 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-top:6px;color:var(--merah-teks)}
 .kalio .sub{color:var(--kunyit)}
-.stempel{position:absolute;top:14px;right:16px;width:84px;height:84px;color:var(--merah);transform:rotate(-12deg);opacity:.88}
-.prangko{position:absolute;top:-14px;right:14px;width:66px;height:77px;transform:rotate(7deg);filter:drop-shadow(0 4px 5px rgba(0,0,0,.35))}
-.lockup-prime{display:flex;align-items:center;gap:10px;margin:-4px 0 16px;color:var(--santan)}
-.lockup-prime img{width:58px;height:auto}
-.pr-word{display:flex;flex-direction:column;width:118px}
-.pr-word .wordmark{fill:var(--santan)}
-.pr{display:flex;align-items:center;gap:6px;margin-top:6px;padding-left:.5em;font:600 12px/1 "Barlow Condensed",sans-serif;letter-spacing:.5em;text-transform:uppercase;color:var(--santan)}
-.pr::before,.pr::after{content:"";flex:1;height:1.5px;background:currentColor}
-.tabel{margin:18px 0 18px;border-top:1px solid var(--garis)}
+.stempel{width:62px;height:62px;color:var(--merah);transform:rotate(-12deg);opacity:.9;flex:none}
+.kalio .stempel{color:var(--kunyit);transform:rotate(10deg)}
+.tabel{margin:12px 0 14px;border-top:1px solid var(--garis)}
 .kalio .tabel{border-color:rgba(243,233,218,.4)}
-.tabel div{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--garis)}
+.tabel div{display:flex;flex-direction:column;gap:2px;padding:7px 0;border-bottom:1px solid var(--garis)}
 .kalio .tabel div{border-color:rgba(243,233,218,.4)}
-.tabel dt{flex:0 0 100px;font:600 12px/1.6 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--merah-teks)}
+.tabel dt{font:600 11px/1.3 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--merah-teks)}
 .kalio .tabel dt{color:var(--kunyit)}
-.tabel dd{font-size:15px;line-height:1.4;padding-right:4px}
-.dua{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tb{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;font:600 15px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;border:1.5px solid currentColor;transition:background .15s,color .15s}
+.tabel dd{font-size:14px;line-height:1.3}
+.dua{display:grid;gap:8px;margin-top:auto}
+.tb{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;font:600 14px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;border:1.5px solid currentColor;transition:background .15s,color .15s}
 .tb .ik{width:18px;height:18px}
 .krem .tb-garis{color:var(--kalio)}
 .krem .tb-isi{background:var(--kalio);border-color:var(--kalio);color:var(--santan)}
@@ -73,7 +69,7 @@ a{color:inherit;text-decoration:none}
 .kalio .tb-garis:hover{background:var(--santan);color:var(--kalio)}
 
 /* daftar bergaris bernomor */
-.daftar{list-style:none;background:var(--santan);padding:14px 18px;transform:rotate(.5deg);--sobek:radial-gradient(circle at 7px 0,transparent 5px,#000 5.5px) 0 0/14px 51% repeat-x,radial-gradient(circle at 7px 100%,transparent 5px,#000 5.5px) 0 100%/14px 51% repeat-x;-webkit-mask:var(--sobek);mask:var(--sobek);filter:drop-shadow(0 1px 0 rgba(46,23,18,.18)) drop-shadow(0 10px 12px rgba(46,23,18,.28))}
+.daftar{list-style:none;margin-top:0;background:var(--santan);padding:14px 18px;transform:rotate(.5deg);--sobek:radial-gradient(circle at 7px 0,transparent 5px,#000 5.5px) 0 0/14px 51% repeat-x,radial-gradient(circle at 7px 100%,transparent 5px,#000 5.5px) 0 100%/14px 51% repeat-x;-webkit-mask:var(--sobek);mask:var(--sobek);filter:drop-shadow(0 1px 0 rgba(46,23,18,.18)) drop-shadow(0 10px 12px rgba(46,23,18,.28))}
 .daftar li:last-child .baris{border-bottom:0}
 .baris{display:flex;align-items:center;gap:12px;min-height:60px;padding:10px 0;border-bottom:1.5px dashed rgba(46,23,18,.32)}
 .no{font:700 18px/1 Philosopher,Georgia,serif;color:var(--merah-teks);width:26px}
@@ -81,7 +77,7 @@ a{color:inherit;text-decoration:none}
 .isi b{font:600 17px/1.2 "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase}
 .isi small{font-size:14px;color:#5b4339}
 .pnh{width:22px;height:22px;color:var(--merah);transition:transform .15s}
-.baris:hover .pnh{transform:translate(2px,-2px)}
+
 
 .sosmed{display:flex;justify-content:center;gap:16px;margin-top:40px}
 .sosmed a{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--merah);color:var(--santan);box-shadow:0 0 0 3px var(--kertas),0 0 0 4.5px var(--merah);transition:background .15s,color .15s}
@@ -97,3 +93,28 @@ a{color:inherit;text-decoration:none}
 a:focus-visible{outline:2px solid var(--kunyit);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media (min-width:700px){.kol{padding-top:56px}}
+
+/* kartu outlet: nama, satu janji, satu bukti, satu aksi */
+.janji{font:700 16px/1.25 Philosopher,Georgia,serif;margin:10px 0 0;text-wrap:balance}
+.bukti{display:flex;flex-direction:column;gap:3px;margin:14px 0 16px}
+.bukti b{font:700 36px/.9 Philosopher,Georgia,serif;color:var(--merah)}
+.kalio .bukti b{color:var(--kunyit)}
+.bukti span{font:600 12px/1.25 "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;text-wrap:balance}
+.kartu .tb{margin-top:auto}
+.menu-ln{align-self:center;margin-top:10px;font:600 12px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;opacity:.8}
+.jl{display:block;font:600 12px/1 "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;opacity:.75}
+/* tombol kartu: balok bertepi tebal (bayangan keras tanpa blur), turun saat ditekan */
+.kartu .tb-isi{--tepi:var(--merah);box-shadow:0 5px 0 var(--tepi);margin-bottom:5px;-webkit-tap-highlight-color:transparent;transition:transform 110ms cubic-bezier(.23,1,.32,1),box-shadow 110ms cubic-bezier(.23,1,.32,1),filter 150ms ease}
+.kalio .tb-isi{--tepi:#A8661A}
+.kartu .tb-isi:active{transform:translateY(4px);box-shadow:0 1px 0 var(--tepi)}
+@media (hover:hover) and (pointer:fine){.kartu .tb-isi:hover{filter:brightness(1.08)}}
+.tb-pnh{width:16px!important;height:16px!important;margin-left:2px}
+/* baris daftar: panah di kotak merah bertepi tebal, baris turun saat ditekan */
+.baris{-webkit-tap-highlight-color:transparent;transition:background-color 150ms ease}
+.pnh-k{flex:none;width:38px;height:38px;display:grid;place-items:center;background:var(--merah);box-shadow:0 4px 0 var(--merah-tua);margin-bottom:4px;transition:transform 110ms cubic-bezier(.23,1,.32,1),box-shadow 110ms cubic-bezier(.23,1,.32,1)}
+.pnh-k .pnh{width:18px;height:18px;color:var(--santan)}
+.baris:active{background:rgba(46,23,18,.06)}
+.baris:active .pnh-k{transform:translateY(3px);box-shadow:0 1px 0 var(--merah-tua)}
+@media (hover:hover) and (pointer:fine){.baris:hover{background:rgba(46,23,18,.04)}}
+.kaki-c{display:flex;align-items:center;justify-content:center;gap:10px}
+.bow{height:1em;width:auto;fill:currentColor;flex:none}

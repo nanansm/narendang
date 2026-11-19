@@ -2,11 +2,14 @@
 import json,re,html,os,urllib.parse
 SITE='https://narendang.pages.dev/'   # ganti ke domain asli setelah dibeli
 B='../00-brief/'
-soc=dict(json.load(open(B+'linktree-sosmed.json')));lama=json.load(open(B+'linktree-lama.json'))
-wa_btn=[u for _,u in lama if 'whatsapp' in u][0]
-WA=re.sub(r'\D','',urllib.parse.parse_qs(urllib.parse.urlparse(wa_btn).query)['phone'][0])
 WA_TEXT='Hi! saya dapat nomor ini dari Instagram, saya mau tanya informasi, Promo dan Pricelist di Narendang Bandung'
-WA_URL='https://wa.me/'+WA+'?text='+urllib.parse.quote(WA_TEXT)
+if os.path.exists(B+'linktree-sosmed.json'):
+    soc=dict(json.load(open(B+'linktree-sosmed.json')));lama=json.load(open(B+'linktree-lama.json'))
+    wa_btn=[u for _,u in lama if 'whatsapp' in u][0]
+    WA=re.sub(r'\D','',urllib.parse.parse_qs(urllib.parse.urlparse(wa_btn).query)['phone'][0])
+    WA_URL='https://wa.me/'+WA+'?text='+urllib.parse.quote(WA_TEXT)
+else:  # tanpa folder 00-brief: pakai tautan yang tersimpan di repo
+    soc=json.load(open('tools/tautan.json'));WA_URL=soc['WA_URL'];WA=re.sub(r'\D','',WA_URL.split('?')[0])
 EMAIL=soc['EMAIL_ADDRESS'].replace('mailto:','')
 IG=soc['INSTAGRAM'];TT=soc['TIKTOK'];FB=soc['FACEBOOK']
 L=dict(
@@ -20,6 +23,7 @@ T=json.load(open('tools/logo-trace.json'))
 def logo(k,cls,label):
     t=T[k];return f'<svg class="{cls}" viewBox="0 0 {t["w"]} {t["h"]}" role="img" aria-label="{label}"><g transform="{t["g"]}"><path d="{t["d"]}"/></g></svg>'
 GONJ=logo('gonjong','gonjong','')
+BOW=open('tools/mote-bow.svg').read().replace('<svg ','<svg class="bow" role="img" aria-label="MOTE" ',1)
 WORD=logo('wordmark','wordmark','Narendang')
 
 ICON={
@@ -37,33 +41,31 @@ def ik(k,c='ik'): return f'<svg class="{c}" viewBox="0 0 24 24" aria-hidden="tru
 BUNGA='<svg class="bunga" viewBox="0 0 7 7" aria-hidden="true" shape-rendering="crispEdges"><path d="M3 0h1v2H3zM0 3h2v1H0zM5 3h2v1H5zM3 5h1v2H3zM2 2h3v3H2z"/></svg>'
 def lb(txt,cls=''): return f'<p class="lb {cls}">{BUNGA}{txt}</p>'
 GJ=T['gonjong']
-PRANGKO=f'''<svg class="prangko" viewBox="0 0 120 140" aria-hidden="true"><defs><mask id="gerigi"><rect width="120" height="140" fill="#fff"/>{''.join(f'<circle cx="{x}" cy="0" r="5"/><circle cx="{x}" cy="140" r="5"/>' for x in range(0,121,12))}{''.join(f'<circle cx="0" cy="{y}" r="5"/><circle cx="120" cy="{y}" r="5"/>' for y in range(4,141,12))}</mask></defs>
-<g mask="url(#gerigi)"><rect width="120" height="140" fill="#F3E9DA"/></g><rect x="11" y="11" width="98" height="118" fill="none" stroke="#E32B33" stroke-width="2"/>
-<g fill="#E32B33" transform="translate(30 24) scale({60/GJ['w']:.4f})"><g transform="{GJ['g']}"><path d="{GJ['d']}"/></g></g>
-<text x="60" y="110" text-anchor="middle" font-family="Philosopher,serif" font-weight="700" font-size="44" fill="#E32B33">58</text></svg>'''
-STEMPEL=f'''<svg class="stempel" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="lingkar" d="M60 16a44 44 0 1 1 0 88a44 44 0 1 1 0-88"/></defs>
+def stempel(teks,isi,cls=''):
+    return f'''<svg class="stempel {cls}" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="lk{cls}" d="M60 16a44 44 0 1 1 0 88a44 44 0 1 1 0-88"/></defs>
 <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="60" cy="60" r="32" fill="none" stroke="currentColor" stroke-width="1.5"/>
-<text font-family="'Barlow Condensed',sans-serif" font-weight="600" font-size="12.5" fill="currentColor"><textPath href="#lingkar" textLength="270" lengthAdjust="spacing">NARENDANG · JL. KALIMANTAN · BANDUNG ·</textPath></text>
-<g fill="currentColor" transform="translate(40 49) scale({40/GJ['w']:.4f})"><g transform="{GJ['g']}"><path d="{GJ['d']}"/></g></g></svg>'''
+<text font-family="'Barlow Condensed',sans-serif" font-weight="600" font-size="12.5" fill="currentColor"><textPath href="#lk{cls}" textLength="270" lengthAdjust="spacing">{teks}</textPath></text>{isi}</svg>'''
+STEMPEL_KAL=stempel('NARENDANG · JL. KALIMANTAN · BANDUNG ·',f'<g fill="currentColor" transform="translate(40 49) scale({40/GJ["w"]:.4f})"><g transform="{GJ["g"]}"><path d="{GJ["d"]}"/></g></g>','kal')
+STEMPEL_CIS=stempel('NARENDANG · JL. CISANGKUY 58 · BANDUNG ·','<image href="/assets/mark-cisangkuy-krem.webp" x="36" y="46" width="48" height="28"/>','cis')
 
 def baris(no,judul,ket,url,ikon='panah'):
-    return f'<li><a class="baris" href="{html.escape(url)}" target="_blank" rel="noopener"><span class="no">{no}</span><span class="isi"><b>{judul}</b><small>{ket}</small></span>{ik(ikon,"ik pnh")}</a></li>'
+    return f'<li><a class="baris" href="{html.escape(url)}" target="_blank" rel="noopener"><span class="no">{no}</span><span class="isi"><b>{judul}</b><small>{ket}</small></span><span class="pnh-k">{ik(ikon,"ik pnh")}</span></a></li>'
 
 def tombol(url,teks,ikon,cls):
     ext='' if url=='#' else ' target="_blank" rel="noopener"'
-    return f'<a class="tb {cls}" href="{html.escape(url)}"{ext}>{ik(ikon)}<span>{teks}</span></a>'
+    return f'<a class="tb {cls}" href="{html.escape(url)}"{ext}>{ik(ikon)}<span>{teks}</span>{ik("panah","ik tb-pnh")}</a>'
 
 ld={"@context":"https://schema.org","@graph":[
  {"@type":"Organization","@id":SITE+"#brand","name":"Narendang","slogan":"Nendang Rasanya!","url":SITE,"logo":SITE+"assets/ikon-512.png","email":EMAIL,"telephone":"+"+WA,"sameAs":[IG,TT,FB]},
  {"@type":"Restaurant","name":"Narendang Jl. Kalimantan","servesCuisine":["Masakan Padang","Rendang"],"parentOrganization":{"@id":SITE+"#brand"},"telephone":"+"+WA,
   "address":{"@type":"PostalAddress","streetAddress":"Jl. Kalimantan","addressLocality":"Bandung","addressRegion":"Jawa Barat","addressCountry":"ID"},
   "geo":{"@type":"GeoCoordinates","latitude":-6.913934,"longitude":107.6151509},"hasMap":L['maps_kal'],"acceptsReservations":True,"image":SITE+"assets/og.jpg"},
- {"@type":"Restaurant","name":"Narendang Prime","servesCuisine":["Masakan Padang","Rendang"],"parentOrganization":{"@id":SITE+"#brand"},"telephone":"+"+WA,
+ {"@type":"Restaurant","name":"Narendang Jl. Cisangkuy 58","servesCuisine":["Masakan Padang","Rendang"],"parentOrganization":{"@id":SITE+"#brand"},"telephone":"+"+WA,
   "address":{"@type":"PostalAddress","streetAddress":"Jl. Cisangkuy No. 58","addressLocality":"Bandung","addressRegion":"Jawa Barat","addressCountry":"ID"},
   "geo":{"@type":"GeoCoordinates","latitude":-6.9024267,"longitude":107.6217764},"hasMap":L['maps_cis'],"acceptsReservations":True,"image":SITE+"assets/og.jpg"}]}
 
 TITLE='Narendang — Rumah Makan Padang di Bandung · Jl. Kalimantan & Cisangkuy 58'
-DESC='Reservasi, Nasi Box, dan Prasmanan Narendang lewat WhatsApp. Dua outlet di Bandung: Jl. Kalimantan dan Narendang Prime Jl. Cisangkuy 58. Nendang Rasanya!'
+DESC='Reservasi, Nasi Box, dan Prasmanan Narendang lewat WhatsApp. Dua outlet di Bandung: Jl. Kalimantan dan Jl. Cisangkuy 58. Nendang Rasanya!'
 css=open('tools/style.css').read()
 css=re.sub(r'/\*.*?\*/','',css,flags=re.S);css=re.sub(r'\s+',' ',css);css=re.sub(r'\s*([{}:;,>])\s*',r'\1',css).replace(';}','}')
 
@@ -101,37 +103,37 @@ page=f'''<!doctype html>
 </a>
 
 {lb('Dua outlet')}
+<div class="outlet">
 <section class="kartu krem" aria-labelledby="o1">
-<p class="nomor">No. 01</p>
-{STEMPEL}
-<h2 id="o1">Jl. Kalimantan</h2>
-<p class="sub">Outlet pertama</p>
-<dl class="tabel">
-<div><dt>Ulasan Google</dt><dd>4,8 dari 1.312 ulasan</dd></div>
-<div><dt>Andalan</dt><dd>Rames, rendang, gulai tunjang</dd></div>
-</dl>
-<div class="dua">{tombol(L['menu_kal'],'Menu','menu','tb-garis')}{tombol(L['maps_kal'],'Rute Maps','pin','tb-isi')}</div>
+<div class="atas"><p class="nomor">Outlet 01</p>{STEMPEL_KAL}</div>
+<h2 id="o1"><span class="jl">Jl.</span>Kalimantan</h2>
+<p class="janji">Sudah&nbsp;terbukti nendang&nbsp;rasanya.</p>
+<p class="bukti"><b>4,8</b><span>1.312 ulasan Google</span></p>
+{tombol(L['maps_kal'],'Rute','pin','tb-isi')}
+<a class="menu-ln" href="{L['menu_kal']}">Lihat menu</a>
 </section>
-
 <section class="kartu kalio" aria-labelledby="o2">
-<p class="nomor">No. 02</p>
-{PRANGKO}
-<div class="lockup-prime"><img src="/assets/mark-prime-krem.webp" width="120" height="70" alt="" loading="lazy" decoding="async"><span class="pr-word">{logo('wordmark','wordmark','')}<span class="pr">Prime</span></span></div>
-<h2 id="o2">Jl. Cisangkuy 58</h2>
-<p class="sub">Outlet kedua</p>
-<dl class="tabel">
-<div><dt>Kapasitas</dt><dd>178 kursi di enam area makan</dd></div>
-<div><dt>Ruang VIP</dt><dd>2 ruang bermotif songket</dd></div>
-</dl>
-<div class="dua">{tombol(L['menu_cis'],'Menu','menu','tb-garis')}{tombol(L['maps_cis'],'Rute Maps','pin','tb-isi')}</div>
+<div class="atas"><p class="nomor">Outlet 02</p>{STEMPEL_CIS}</div>
+<h2 id="o2"><span class="jl">Jl.</span>Cisangkuy&nbsp;58</h2>
+<p class="janji">Paling&nbsp;cocok buat&nbsp;rombongan dan&nbsp;keluarga.</p>
+<p class="bukti"><b>178</b><span>kursi dan 2 ruang VIP</span></p>
+{tombol(L['maps_cis'],'Rute','pin','tb-isi')}
+<a class="menu-ln" href="{L['menu_cis']}">Lihat menu</a>
 </section>
+</div>
+
 
 {lb('Pesan antar &amp; katering')}
 <ul class="daftar">
 {baris('03','Paket Box &amp; Prasmanan','Daftar paket (PDF)',L['paket'])}
 {baris('04','GoFood','Pesan antar',L['gofood'])}
 {baris('05','ShopeeFood','Pesan antar',L['shopee'])}
-{baris('06','Ulas Narendang','Google Maps · Jl. Kalimantan',L['maps_kal'])}
+</ul>
+
+{lb('Ulas di Google')}
+<ul class="daftar">
+{baris('06','Ulas Jl. Cisangkuy 58','Google Maps · outlet kedua',L['maps_cis'])}
+{baris('07','Ulas Jl. Kalimantan','Google Maps · outlet pertama',L['maps_kal'])}
 </ul>
 
 <nav class="sosmed" aria-label="Media sosial Narendang">
@@ -145,7 +147,7 @@ page=f'''<!doctype html>
 <footer class="kaki">
 <div class="pita" aria-hidden="true"></div>
 <p class="kaki-tag"><span>Nendang</span><br>Rasanya!</p>
-<p class="kaki-c">© 2026 Narendang · Bandung</p>
+<p class="kaki-c">© 2026 Narendang{BOW}Bandung</p>
 </footer>
 </body>
 </html>

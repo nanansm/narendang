@@ -2,8 +2,8 @@
 import json,random,os
 from PIL import Image,ImageDraw,ImageFont,ImageFilter
 A='../05-aset-brand/dari-deck/';P='public/assets/'
-m=Image.open(A+'mark-songket-krem-lubang.png');m.thumbnail((120,120));m.save(P+'mark-prime-krem.webp',quality=88,method=6)
-m2=Image.open(A+'mark-songket-2warna.png');m2.thumbnail((240,240));m2.save(P+'mark-prime.webp',quality=88,method=6)
+m=Image.open(A+'mark-songket-krem-lubang.png');m.thumbnail((120,120));m.save(P+'mark-cisangkuy-krem.webp',quality=88,method=6)
+m2=Image.open(A+'mark-songket-2warna.png');m2.thumbnail((240,240));m2.save(P+'mark-cisangkuy.webp',quality=88,method=6)
 # noise butir kertas: alpha rendah
 random.seed(5);n=Image.new('LA',(160,160))
 px=[(random.choice((40,60,90)),random.randint(0,22)) if random.random()<.55 else (0,0) for _ in range(160*160)]
