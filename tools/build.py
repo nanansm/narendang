@@ -1,6 +1,6 @@
 # Rakit public/index.html (HTML statis, CSS inline) dari data + logo trace
 import json,re,html,os,urllib.parse
-SITE='https://narendang.pages.dev/'   # ganti ke domain asli setelah dibeli
+SITE='https://narendang.com/'
 B='../00-brief/'
 WA_TEXT='Hi! saya dapat nomor ini dari Instagram, saya mau tanya informasi, Promo dan Pricelist di Narendang Bandung'
 if os.path.exists(B+'linktree-sosmed.json'):
